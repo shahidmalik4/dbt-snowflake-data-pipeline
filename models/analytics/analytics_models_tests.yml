@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: total_revenue_by_supplier
+    tests:
+      - not_null:
+          column_name: supplier_id
+      - not_null:
+          column_name: total_revenue
+      - custom:
+          name: total_revenue_positive
+          test_sql: |
+            SELECT supplier_id FROM {{ ref('total_revenue_by_supplier') }}
+            WHERE total_revenue <= 0
+
+  - name: three_month_rolling_sales_by_supplier
+    tests:
+      - not_null:
+          column_name: supplier_id
+      - not_null:
+          column_name: rolling_3_month_sales
+
+  - name: top_suppliers_by_profit
+    tests:
+      - not_null:
+          column_name: supplier_id
+      - not_null:
+          column_name: total_profit

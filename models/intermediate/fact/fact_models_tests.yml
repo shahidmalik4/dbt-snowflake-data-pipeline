@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: fact_lineitem
+    tests:
+      - unique:
+          column_name: lineitem_id
+      - not_null:
+          column_name: lineitem_id
+      - not_null:
+          column_name: part_id
+      - relationships:
+          column_name: part_id
+          to: ref('dim_part')
+          field: part_id
+      - relationships:
+          column_name: supplier_id
+          to: ref('dim_supplier')
+          field: supplier_id
+
+  - name: fact_orders
+    tests:
+      - unique:
+          column_name: order_id
+      - not_null:
+          column_name: order_id
+      - not_null:
+          column_name: customer_id
+      - relationships:
+          column_name: customer_id
+          to: ref('dim_customer')
+          field: customer_id
+
+  - name: fact_partsupp
+    tests:
+      - unique:
+          column_name: partsupp_id
+      - not_null:
+          column_name: part_id
+      - not_null:
+          column_name: supplier_id
+      - relationships:
+          column_name: part_id
+          to: ref('dim_part')
+          field: part_id
+      - relationships:
+          column_name: supplier_id
+          to: ref('dim_suppier')
+          field: supplier_id

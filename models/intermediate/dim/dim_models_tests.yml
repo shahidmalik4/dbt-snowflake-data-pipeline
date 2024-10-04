@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: dim_customer
+    tests:
+      - unique:
+          column_name: customer_id
+      - not_null:
+          column_name: customer_id
+
+  - name: dim_nation
+    tests:
+      - unique:
+          column_name: nation_id
+      - not_null:
+          column_name: nation_id
+
+  - name: dim_part
+    tests:
+      - unique:
+          column_name: part_id
+      - not_null:
+          column_name: part_id
+
+  - name: dim_region
+    tests:
+      - unique:
+          column_name: region_id
+      - not_null:
+          column_name: region_id
+      - accepted_values:
+          column_name: region_name
+          values: ['North America', 'Europe', 'Asia', 'South America', 'Africa']
+
+  - name: dim_supplier
+    tests:
+      - unique:
+          column_name: supplier_id
+      - not_null:
+          column_name: supplier_id
