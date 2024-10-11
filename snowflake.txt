@@ -1,16 +1,29 @@
 -- CREATE ACCOUNTS
 USE ROLE ACCOUNTADMIN;
 
-CREATE WAREHOUSE DBT_WH WITH WAREHOUSE_SIZE='X-Small';
+-- Create a warehouse
+CREATE WAREHOUSE IF NOT EXISTS DBT_WH WITH WAREHOUSE_SIZE = 'X-Small';
+
+-- Create a database
 CREATE DATABASE IF NOT EXISTS DBT_DB;
+
+-- Create a role
 CREATE ROLE IF NOT EXISTS DBT_ROLE;
 
+-- Show grants on the warehouse
 SHOW GRANTS ON WAREHOUSE DBT_WH;
 
-GRANT ROLE DBT_ROLE TO USER <USERNAME>;
+-- Replace <USERNAME> with the actual username
+GRANT ROLE DBT_ROLE TO USER '<USERNAME>';  -- Use quotes if the username has special characters
 GRANT USAGE ON WAREHOUSE DBT_WH TO ROLE DBT_ROLE;
 GRANT ALL ON DATABASE DBT_DB TO ROLE DBT_ROLE;
 
+-- Switch to the newly created role
 USE ROLE DBT_ROLE;
 
+-- Create a schema in the database
 CREATE SCHEMA IF NOT EXISTS DBT_DB.DBT_SCHEMA;
+
+-- Grant privileges on the schema to the role
+GRANT USAGE ON SCHEMA DBT_DB.DBT_SCHEMA TO ROLE DBT_ROLE;
+
